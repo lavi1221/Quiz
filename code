@@ -1,0 +1,128 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+class Question{
+ public:
+    string type;
+    int points;
+    string ques[5];
+    string ans[5];
+};
+class MCQ : public Question{
+public:
+    MCQ(){
+       type="MCQ";
+       points=20;
+   string que[5]={
+    	"When is the International Yoga Day celebrated ?  (A) June 21	(B) March 21	(C) April 22	(D) May 31",
+		"Which of the following crops grows in black soil? [A] Cotton [B] Sugarcane [C] Rice [D] Wheat",
+		"The SI unit of charge is	(A) Ampere	(B) Coulomb		(C) Ohm		(D) Volt",
+		"Deficiency of Vitamin-A results in		(A) night blindness		(B) rickets		(C) scurvy	(D) hair fall",
+		"The lifespan of Red Blood Cells is __________ days.	(A) 60		(B) 120		(C) 180		(D) 240"
+       };
+
+      string  an[5]={"A","A","B","A","B"};
+      for(int i=0;i<5;i++){
+      	   ques[i]=que[i];
+           ans[i]=an[i];
+      }
+    }
+};
+
+class SA : public Question{
+public:
+    SA(){
+       type="SA";
+       points=30;
+       string que[5]={
+    			"The density of water is___g/cm3",
+    		    "A device which converts chemical energy into electrical energy is called______",
+    	 		"HTML is an abbreviation for?",
+   	      		"LAN is an abbreviation for?",
+				"URL is an abbreviation for?"
+
+           };
+    string an[5]={
+    		   "1","BATTERY","HYPER TEXT MARKUP LANGUAGE","LOCAL AREA NETWORK","UNI"
+       };
+    for(int i=0;i<5;i++){
+          	   ques[i]=que[i];
+               ans[i]=an[i];
+          }
+    }
+};
+class T_F : public Question{
+public:
+    T_F(){
+       type="T or F";
+       points=10;
+        string que[5]={	"Electrons are larger than molecules.",
+         		"The Atlantic Ocean is the biggest ocean on Earth.",
+         		"The human body has four lungs.",
+         		"Sharks are mammals.",
+         		"The chemical make up food often changes when you cook it."
+
+           };
+     string an[5]={
+    		  "FALSE","FALSE","FALSE","FALSE","TRUE"
+      };
+     for(int i=0;i<5;i++){
+           	   ques[i]=que[i];
+                ans[i]=an[i];
+           }
+   }
+};
+
+int main() {
+    int total=0;
+	string name;
+	cout<<"Enter your name:)"<<endl;
+	cin>>name;
+	cout<<"WELCOME "<<name<<endl;
+
+	int skip;
+	int num=99;
+	while(1){
+		cout<<"Enter no. of questions out of 10"<<endl;
+		cin>>num;
+		try{
+		if(num>10 || num==0){
+			throw(num);
+		}
+		else break;
+	}catch(int m){
+		cout<<"Invalid Input Enter again:"<<endl;
+	 }
+   }
+	skip=num/4;
+	cout<<name<<" You can skip any"<<skip<<" questions"<<endl;
+	MCQ mcq;
+	SA shortAns;
+	T_F t_f;
+	Question arr[]={ mcq,shortAns,t_f};
+	while(num>0){
+		int i =rand()%3;
+		cout<<arr[i].type<<"  ";
+		cout<<arr[i].points<<endl;
+	    int j=rand()%5;
+		cout<<arr[i].ques[j];
+		string as;
+		cin>>as;
+		if(as==arr[i].ans[j]){
+			total+=arr[i].points;
+		}else if(as=="SKIP" && skip>0){
+			skip--;
+			cout<<"Question Skiped :: Skip left"<<skip;
+			 num++;
+		}
+		else{
+			cout<<"Wrong Answer"<<endl;
+			break;
+		}
+		num--;
+	}
+ cout<<"GAME OVER "<<name<<"Your Score : "<<total;
+ cout<<"Well Played";
+	return 0;
+}
+
